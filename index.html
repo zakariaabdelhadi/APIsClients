@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+    <div id="Preis">
+        <!-- The fetched data will be displayed here -->
+    </div><br>
+    <div id="wetter">
+        <h3 id="1"></h3>
+        <h3 id="2"></h3>
+        <h3 id="3"></h3>
+        <h3 id="4"></h3>
+
+        <!-- The fetched data will be displayed here -->
+    </div><br>
+    <div id="strom">
+        <!-- The fetched data will be displayed here -->
+    </div><br>
+
+    <script>
+        // Fetch data using $.ajax()
+        $.ajax({
+            url: 'http://localhost:5001/api/markt/preise?m=05&t=02&s=13', // Replace this with the URL of your API or data source
+            method: 'GET', // Change to 'POST' if you want to use POST request
+            dataType: 'json', // Change to 'xml', 'html', 'text', etc., based on the expected response type
+            success: function (data) {
+                // The 'data' parameter contains the response from the server
+                // You can manipulate and display the data here
+                $('#Preis').text(JSON.stringify(data));
+            },
+            error: function (xhr, status, error) {
+                // Handle errors here
+                console.error('Error:', status, error);
+            }
+        });
+
+
+
+
+
+
+
+        $.ajax({
+            url: 'http://localhost:5001/api/wetter/wetter-current', // Replace this with the URL of your API or data source
+            method: 'GET', // Change to 'POST' if you want to use POST request
+            dataType: 'json', // Change to 'xml', 'html', 'text', etc., based on the expected response type
+            success: function (data) {
+                // The 'data' parameter contains the response from the server
+                // You can manipulate and display the data here
+                $('#2').text(JSON.stringify(data.temperatur));
+                $('#3').text(JSON.stringify(data.Luftfeuchtigkeit));
+                $('#4').text(JSON.stringify(data.Windgeschwindigkeit));
+
+            },
+            error: function (xhr, status, error) {
+                // Handle errors here
+                console.error('Error:', status, error);
+            }
+        });
+
+
+
+        $.ajax({
+            url: 'http://localhost:5001/api/strom/current', // Replace this with the URL of your API or data source
+            method: 'GET', // Change to 'POST' if you want to use POST request
+            dataType: 'json', // Change to 'xml', 'html', 'text', etc., based on the expected response type
+            success: function (data) {
+                // The 'data' parameter contains the response from the server
+                // You can manipulate and display the data here
+                $('#strom').text(JSON.stringify(data));
+            },
+            error: function (xhr, status, error) {
+                // Handle errors here
+                console.error('Error:', status, error);
+            }
+        });
+
+
+
+
+
+    </script>
+</body>
+
+</html>
